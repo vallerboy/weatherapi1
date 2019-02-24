@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpStatusCodeException;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/weather")
 public class WeatherApiController {
@@ -25,7 +27,10 @@ public class WeatherApiController {
 
     @GetMapping("/{cityName}") //asijdisajudsh
     public ResponseEntity showWeatherForCity(@PathVariable("cityName") String city,
-                                             @RequestHeader("api-key") String apiKey){
+                                             @RequestHeader("api-key") String apiKey,
+                                             HttpServletRequest httpServletRequest){
+
+
         if(apiKey != null && !apiKey.equals(ourApiKey)){
             return ResponseEntity
                     .status(HttpStatus.FORBIDDEN)

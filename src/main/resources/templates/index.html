@@ -18,7 +18,7 @@
 
          <ul th:if="${weatherForecast != null}">
              <li th:each="weatherDto : ${weatherForecast.getList()}"
-                 th:text="${weatherDto.getDate().getDayOfWeek() + ' : ' + weatherDto.getBaseWeatherParameters().getTemp()}"></li>
+                 th:text="${weatherDto.getDate().getDayOfWeek() + ' ' + weatherDto.getDate().getHour() + ':' + weatherDto.getDate().getMinute() + ' | ' + weatherDto.getBaseWeatherParameters().getTemp()}"></li>
          </ul>
 
          <form method="post" action="/">

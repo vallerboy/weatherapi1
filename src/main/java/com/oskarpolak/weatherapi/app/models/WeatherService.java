@@ -1,5 +1,6 @@
 package com.oskarpolak.weatherapi.app.models;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
@@ -14,8 +15,18 @@ public class WeatherService {
     @Value("${openweathermap.api.key}")
     String apiKey;
 
+    final LogService logService;
+
+    @Autowired
+    public WeatherService(LogService logService) {
+        this.logService = logService;
+    }
+
     public WeatherDto getWeather(String cityName) {
-         return getRestTemplate().getForObject("http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=metric", WeatherDto.class);
+        WeatherDto weatherDto = getRestTemplate().getForObject("http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=metric", WeatherDto.class);
+
+        logService.saveLog(cityName, weatherDto.getBaseWeatherParameters().getTemp());
+        return weatherDto;
     }
 
     public ForecastWeatherDto getWeatherForecast(String cityName) {

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpStatusCodeException;
 
+import javax.persistence.EntityManager;
+
 @Controller
 public class MainController {
 
@@ -32,6 +34,7 @@ public class MainController {
                         Model model){
         model.addAttribute("weather", weatherService.getWeather(cityName));
         model.addAttribute("weatherForecast", weatherService.getWeatherForecast(cityName));
+
         return "index";
     }
 
