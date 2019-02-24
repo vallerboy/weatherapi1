@@ -13,7 +13,7 @@ import org.springframework.web.client.HttpStatusCodeException;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/weather")
+@RequestMapping("/api/weather")
 public class WeatherApiController {
     final WeatherService weatherService;
 
@@ -25,7 +25,7 @@ public class WeatherApiController {
         this.weatherService = weatherService;
     }
 
-    @GetMapping("/{cityName}") //asijdisajudsh
+    @GetMapping("/{cityName}")
     public ResponseEntity showWeatherForCity(@PathVariable("cityName") String city,
                                              @RequestHeader("api-key") String apiKey,
                                              HttpServletRequest httpServletRequest){
